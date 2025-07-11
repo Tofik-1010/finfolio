@@ -390,10 +390,8 @@ export default function AvatarUpload({ onAvatarChange }: AvatarUploadProps) {
         {currentCategory.avatars.map((avatar, index) => (
           <div key={index} className="relative group">
             <button
-              onClick={() => {
-                setSelectedAvatar(avatar.url);
-                setPreviewUrl(null);
-              }}
+            onClick={() => handleAvatarSelect(avatar.url)}
+
               disabled={isUploading}
               className={`relative w-full aspect-square rounded-2xl overflow-hidden border-3 transition-all duration-300 transform hover:scale-105 hover:shadow-xl ${
                 selectedAvatar === avatar.url
@@ -407,14 +405,7 @@ export default function AvatarUpload({ onAvatarChange }: AvatarUploadProps) {
                 className="w-full h-full object-cover bg-white"
               />
               
-              {/* Selection overlay */}
-              {selectedAvatar === avatar.url && (
-                <div className="absolute inset-0 bg-purple-500 bg-opacity-20 flex items-center justify-center">
-                  <div className="bg-purple-500 text-white p-2 rounded-full">
-                    <Check className="w-4 h-4" />
-                  </div>
-                </div>
-              )}
+              
               
               {/* Loading overlay */}
               {isUploading && selectedAvatar === avatar.url && (
@@ -436,21 +427,7 @@ export default function AvatarUpload({ onAvatarChange }: AvatarUploadProps) {
         ))}
       </div>
 
-      {/* Apply Selected Avatar Button */}
-      {selectedAvatar && !previewUrl && (
-        <div className="flex justify-center">
-          <button
-            onClick={() => handleAvatarSelect(selectedAvatar)}
-            disabled={isUploading}
-            className="flex items-center space-x-3 px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-          >
-            <Star className="w-5 h-5" />
-            <span className="font-semibold">
-              {isUploading ? 'Applying Avatar...' : 'Apply Selected Avatar'}
-            </span>
-          </button>
-        </div>
-      )}
+     
 
       {/* Upload Custom Button */}
       <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-2xl p-8 text-center hover:border-purple-400 dark:hover:border-purple-500 transition-colors duration-300 bg-gradient-to-br from-gray-50 to-purple-50 dark:from-gray-800 dark:to-purple-900/20">
